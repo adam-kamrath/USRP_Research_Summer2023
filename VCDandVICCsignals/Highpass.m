@@ -1,9 +1,9 @@
-Fs = 200000; 
+Fs = 10000000; 
 filtertype = 'FIR';
-Fpass = 90000;
-Fstop = 85000; 
+Fpass = 10000;
+Fstop = 5000; 
 Rp = 0.1;
-Astop = 80;
+Astop = 60;
 FIRHPF = dsp.HighpassFilter(SampleRate=Fs,...
                              FilterType=filtertype,...
                              PassbandFrequency=Fpass,...

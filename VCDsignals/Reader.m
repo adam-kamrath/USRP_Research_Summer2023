@@ -1,8 +1,10 @@
+filename = '3inv.bb';
 sampling_rate = 200000;
 decimation_factor = 100000000/sampling_rate;
 center_frequency = 13560000;
 
-reader = comm.BasebandFileReader('3inv.bb', SamplesPerFrame=inf);
+filepath = append('C:\Users\akamrath2\Documents\USRP_Research_Summer2023\VCDsignals\Signals\', filename);
+reader = comm.BasebandFileReader(filepath, SamplesPerFrame=inf);
 %Create the time scope for the unfiltered data
 dataTimeScope = timescope(TimeSpanSource = "auto",...
                       TimeSpan = 5,SampleRate = sampling_rate, ...
