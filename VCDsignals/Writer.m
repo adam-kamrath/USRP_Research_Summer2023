@@ -1,6 +1,6 @@
-filename = '3inv.bb';
-center_frequency = 13560000;
-sampling_rate = 200000;
+filename = '13_54.bb';
+center_frequency = 13540000;
+sampling_rate = 2000000;
 decimation_factor = round(100000000/sampling_rate);
 
 rx = comm.SDRuReceiver(...

@@ -1,7 +1,7 @@
-filename = '3inv.bb';
+filename = '13_54.bb';
 sampling_rate = 200000;
 decimation_factor = 100000000/sampling_rate;
-center_frequency = 13560000;
+center_frequency = 13580000;
 
 filepath = append('C:\Users\akamrath2\Documents\USRP_Research_Summer2023\VCDsignals\Signals\', filename);
 reader = comm.BasebandFileReader(filepath, SamplesPerFrame=inf);
@@ -19,9 +19,9 @@ highpassTimeScope = timescope(TimeSpanSource = "auto",...
 %Get the data from the file
 data = reader();
 %Create the highpass filter
-highpass = dsp.HighpassFilter(StopbandFrequency=1000, ...
+highpass = dsp.HighpassFilter(StopbandFrequency=500, ...
     SampleRate=sampling_rate, ...
-    PassbandFrequency= 2000);
+    PassbandFrequency= 1000);
 %Put data through highpass filter
 highpass_data = highpass(data);
 
