@@ -1,10 +1,12 @@
 clc;
 Highpass;
 % Bandpass;
+global sampling_rate;
+global sample_time;
 sampling_rate = 2000000;
 decimation_factor = 100000000/sampling_rate;
 
-file_name = 'single_sys_info.bb';
+file_name = '20Mhz_card.bb';
 
 file_path = append('C:\Users\akamrath2\Documents\USRP_Research_Summer2023\VCDandVICCsignals\Signals\', file_name);
 reader = comm.BasebandFileReader(file_path, SamplesPerFrame=inf);
@@ -22,15 +24,16 @@ dataTimeScope = timescope(TimeSpanSource = "auto",...
 %Get the data from the file
 data = reader();
 
-%Gets the magnitude of the data
-magnitude_data = abs(data);
+
 
 %Put data through highpass filter
-highpass_data = HighpassFilter(magnitude_data);
+highpass_data = HighpassFilter(data);
 
+%Gets the magnitude of the data
+magnitude_data = abs(highpass_data);
 
 %Makes the data digital signals
-edit_data = editData(absolute_data);
+edit_data = editData(magnitude_data);
 
 %Put data through bandpass filter
 % bandpass_data = BandpassFilter(magnitude_data);
@@ -41,10 +44,19 @@ dataTimeScope(edit_data);
 release(dataTimeScope);
 % spectrum(data);
 
-decodeCardData(edit_data);
+binary_sequence = decodeCardDataFast(edit_data);
+disp(binary_sequence);
+[flags, info_flags, uid, dsfid, afi, memory, ic_reference, crc] = sortBinarySequence(binary_sequence);
+disp(flags);
+disp(info_flags);
+disp(uid);
+disp(dsfid);
+disp(afi);
+disp(memory);
+disp(ic_reference);
+disp(crc);
 
 %release instances
-
 release(HighpassFilter);
 % release(BandpassFilter);
 release(reader);
