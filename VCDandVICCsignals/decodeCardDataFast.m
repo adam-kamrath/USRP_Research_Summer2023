@@ -1,10 +1,11 @@
 function binary_sequence = decodeCardDataFast(data)
     %Starting parameters
     global sampling_rate;
-    global sample_time;
+    global sample_time
     global current_sample;
     current_sample = 1;
     binary_sequence = '';
+    
 
     findSOF(data);
     %This loops for the amount of bits in a system information response
@@ -30,10 +31,8 @@ function findSOF(data)
     SOFfound = false;
     
     while SOFfound == false
-        %Gets the amount of consecutive pulses starting from the next one
-        pulses = checkForPulses(data, 24);
         %Checks if there are 24 pulses
-        if pulses ~= 24
+        if checkForPulses(data, 24) ~= 24
             continue;
         end
         %Gets the time difference between the two groups of pulses
@@ -41,13 +40,12 @@ function findSOF(data)
         sample_difference = one_sample - current_sample;
         time_difference = sample_difference * sample_time;
         %Checks if the time difference is correct for the SOF
-        if (14e-06 > time_difference) && (time_difference > 20e-06)
+        if (.000014 > time_difference) && (time_difference > .000020)
             continue;
         end
         if checkForPulses(data, 8) == 8
             SOFfound = true;
-        end
-        
+        end 
     end
 end
 
@@ -102,8 +100,7 @@ function found = logicOneCheck(data)
     %Checks if the time difference is correct for a logic one
     if time_difference > 5e-06
         %Checks if there are 8 pulses after the gap
-        pulses = checkForPulses(data, 8);
-        if pulses == 8
+        if checkForPulses(data, 8) == 8
             found = true;
             return;
         else

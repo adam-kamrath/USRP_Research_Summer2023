@@ -3,7 +3,7 @@ center_frequency = 13560000;
 sampling_rate = 2000000;
 decimation_factor = round(100000000/sampling_rate);
 
-file_name = 'SOFfinder_test.bb';
+file_name = 'sixth_test.bb';
 file_path = append('C:\Users\akamrath2\Documents\USRP_Research_Summer2023\VCDandVICCsignals\Signals\', file_name);
 
 %Create the receiver object
