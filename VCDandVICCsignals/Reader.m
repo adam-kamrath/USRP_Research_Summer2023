@@ -7,7 +7,7 @@ sampling_rate = 2000000;
 sample_time = 1/sampling_rate;
 decimation_factor = 100000000/sampling_rate;
 
-file_name = 'first_test.bb';
+file_name = 'fifth_test.bb';
 
 file_path = append('C:\Users\akamrath2\Documents\USRP_Research_Summer2023\VCDandVICCsignals\Signals\', file_name);
 reader = comm.BasebandFileReader(file_path, SamplesPerFrame=inf);
@@ -28,7 +28,7 @@ data = reader();
 
 
 %Put data through highpass filter
-highpass_data = HighpassFilter(data);
+% highpass_data = HighpassFilter(data);
 
 
 % %Put data through bandpass filter
@@ -36,27 +36,27 @@ highpass_data = HighpassFilter(data);
 
 
 %Gets the magnitude of the data
-magnitude_data = abs(highpass_data);
+magnitude_data = abs(data);
 
 %Makes the data digital signals
 edit_data = editData(magnitude_data);
 
 %Plot data
-dataTimeScope(edit_data);
+dataTimeScope(magnitude_data);
 release(dataTimeScope);
 % spectrum(data);
-
-binary_sequence = decodeCardData(edit_data);
-disp(binary_sequence);
-[flags, info_flags, uid, dsfid, afi, memory, ic_reference, crc] = sortBinarySequence(binary_sequence);
-disp(flags);
-disp(info_flags);
-disp(uid);
-disp(dsfid);
-disp(afi);
-disp(memory);
-disp(ic_reference);
-disp(crc);
+% 
+% binary_sequence = decodeCardData(edit_data);
+% disp(binary_sequence);
+% [flags, info_flags, uid, dsfid, afi, memory, ic_reference, crc] = sortBinarySequence(binary_sequence);
+% disp(flags);
+% disp(info_flags);
+% disp(uid);
+% disp(dsfid);
+% disp(afi);
+% disp(memory);
+% disp(ic_reference);
+% disp(crc);
 
 %release instances
 release(HighpassFilter);
