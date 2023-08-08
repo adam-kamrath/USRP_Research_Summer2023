@@ -1,5 +1,5 @@
 center_frequency = 13560000;
-sampling_rate = 240000;
+sampling_rate = 2000000;
 interpolation_factor = round(100000000/sampling_rate);
 
 tx = comm.SDRuTransmitter(...
